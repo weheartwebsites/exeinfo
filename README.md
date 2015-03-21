@@ -1,4 +1,4 @@
-(https://img.shields.io/badge/license-MIT-blue.svg)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 # exeinfo (cli)
 
