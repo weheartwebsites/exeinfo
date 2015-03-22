@@ -1,3 +1,12 @@
+/*
+ExeInfo 
+Copyright ¬© 2002 - 2004 Nir Sofer
+
+This utility is released as freeware.
+You are allowed to freely use, modify, and distribute it
+as long as you don't remove the original copyright notice.
+*/
+
 #include "stdafx.h"
 #include "stdlib.h"
 #include <windows.h>
@@ -126,7 +135,7 @@ LPSTR GetMachineName(USHORT Machine, LPSTR lpszMachineName)
 		{ IMAGE_FILE_MACHINE_SH3DSP, "Hitachi SH3 DSP" },
 		{ IMAGE_FILE_MACHINE_SH4, "Hitachi SH4" },
 		{ IMAGE_FILE_MACHINE_SH5, "Hitachi SH5" },
-		{ IMAGE_FILE_MACHINE_THUMB, "ARM or Thumb (ìinterworkingî)" },
+		{ IMAGE_FILE_MACHINE_THUMB, "ARM or Thumb (‚Äúinterworking‚Äù)" },
 		{ IMAGE_FILE_MACHINE_WCEMIPSV2, "MIPS little-endian WCE v2" },
 		{ IMAGE_FILE_MACHINE_ALPHA64, "ALPHA64" }};
 
@@ -374,7 +383,7 @@ LPSTR GetExeType(DWORD dwExeType, LPSTR lpszExeType)
 }
 
 
-void ShowExeInfo(LPCSTR lpszFilename)
+int ShowExeInfo(LPCSTR lpszFilename)
 {
 	DWORD dwTemp;
 	UINT dwSize;
@@ -618,22 +627,22 @@ void ShowExeInfo(LPCSTR lpszFilename)
 			else
 			{
 				cout << "\r\nUnrecognized file format.\r\n";
-				return;
+				return 2;
 			}
 
 		}
 		else
 		{
-			cout << lpszFilename << "Cannot read from %s\r\nError %d:%s \n\r";
-			return;
+			cout << "Cannot read from " << lpszFilename << endl << "Error " << GetLastError() << endl;
+			return 3;
 		}
 
 	}
 	else
 	{
 
-		cout << lpszFilename << "Cannot open %s\r\nError %d:%s \n\r";
-		return;
+		cout << "Cannot open " << lpszFilename << endl << "Error " << GetLastError() << endl;;
+		return 4;
 	}
 
 	cout <<"\r\nVersion Information\r\n====================\r\n";
@@ -695,6 +704,7 @@ void ShowExeInfo(LPCSTR lpszFilename)
 	}
 	else
 		cout << "Version information is not available for this file.\n\r";
+	return 0;
 }
 
 int _tmain(int argc, char* argv[])
@@ -710,12 +720,12 @@ int _tmain(int argc, char* argv[])
 	{
 		szFilename = argv[1];
 		/*run func for get info*/
-		ShowExeInfo(szFilename);
+		return ShowExeInfo(szFilename);
+		 
 	}
 	else
 	{
 		cout << "usage: exeinfo.exe \"disk:\\path to app\\appname.exe\"" << endl;
+		return 1;
 	}
-	return 0;
 }
-
