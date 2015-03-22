@@ -520,7 +520,10 @@ int ShowExeInfo(LPCSTR lpszFilename)
 					cout << "Number Of Symbols: " << FormatDWord(ifh->NumberOfSymbols, szValue) << endl;
 					cout << "Optional Header Size: " << FormatDWord(ifh->SizeOfOptionalHeader, szValue, szBytesWord) << endl;
 					cout << "Time Stamp: " << FormatDWordHex(ifh->TimeDateStamp, szValue) << endl;
-					cout << "Characteristics: " << GetCharacteristics(ifh->Characteristics, szValue) << endl;
+					if (machine_64)
+						cout << "Characteristics: " << GetCharacteristics(ifh->Characteristics, szValue) << endl << " * 64 bit word machine" << endl;
+					else
+						cout << "Characteristics: " << GetCharacteristics(ifh->Characteristics, szValue) << endl;
 
 					cout <<"\r\nOptional Header Information\r\n===================================\r\n";
 
