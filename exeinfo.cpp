@@ -293,6 +293,8 @@ LPSTR GetCharacteristics(WORD wCharacteristics, LPSTR lpszCharacteristics)
 		strcat(lpszCharacteristics, "\r\n * ");
 		strcat(lpszCharacteristics, Items[dwIndex].szValue);
 	}
+	if (machine_64)
+		strcat(lpszCharacteristics, "\r\n * 64 bit word machine");
 
 	return lpszCharacteristics;
 }
@@ -732,3 +734,4 @@ int _tmain(int argc, char* argv[])
 		return 1;
 	}
 }
+
